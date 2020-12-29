@@ -1,2 +1,2 @@
-model_checkpoint_path: "lenet5x5_nodropout"
-all_model_checkpoint_paths: "lenet5x5_nodropout"
+model_checkpoint_path: "lenet3x3_test"
+all_model_checkpoint_paths: "lenet3x3_test"
