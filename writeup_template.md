@@ -22,8 +22,14 @@ The goals / steps of this project are the following:
 [image1]: ./report_files/images/dataset_composition.png "Dataset Composition"
 [image2]: ./report_files/images/pre_processed.png "Pre-Processing"
 [image3]: ./report_files/images/augmented.png  "Augmented Image"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
+[image4]: ./report_files/images/model_c_loss.png "Model C Loss"
+[image5]: ./report_files/images/model_c_acc.png "Model C Accuracy"
+[image6]: ./report_files/images/model_a_loss.png "Model A Loss"
+[image7]: ./report_files/images/model_a_acc.png "Model A Accuracy"
+[image8]: ./report_files/images/model_b_loss.png "Model B Loss"
+[image9]: ./report_files/images/model_b_acc.png "Model B Accuracy"
+[image10]: ./report_files/images/model_d_loss.png "Model D Loss"
+[image11]: ./report_files/images/model_d_acc.png "Model D Accuracy"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
@@ -136,7 +142,7 @@ The general model used in this project is similar to the LeNet-5 model, but uses
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as executre any other tasks involving each `Model` class, a `ModelExecutor` class is created. In this class the following parameters may be defined:
+A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as executre any other tasks involving each `Model` class, a `ModelExecutor()` class is created. In this class the following parameters may be defined:
 * Convolution Kernel
 * Pooling Kernel
 * Dropout Rates
@@ -158,22 +164,58 @@ The following models have been tested:
 ## Model Results
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+After training, the model results are plotted with comparisons of the training and validation accuracies. All models have been tested, as defined in the above table, and results are compared to select the best performer. In the end, ***Model C produced the best results, with the lowest losses and highest accuracies, and it showed robustness against overfitting.*** The results are as follows:
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+**Model C** performance:
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+- **Training Accuracy**: 99.99%
+- **Validation Accuracy**: 98.40%
+- **Test Accuracy**: 97.57%
+- **Test Loss:** 0.1290
+
+![Model C Loss][image4]
+
+![Model C Accuracy][image5]
+
+
+The test accuracy of Model C is 4.57% above the 93% required for this project, and approximately 0.83% below the validation test accuracy. The loss graph also shows how well the model does to reduce overfitting, and this is attributed to the dropout layers. **Thus Model C is accepted as the final model.**
+
+For comparison purposes, the results of the other models are discussed below:
+**Model A** performance:
+
+- **Training Accuracy**: 99.99%
+- **Validation Accuracy**: 95.70%
+
+![Model A Loss][image6]
+
+![Model A Accuracy][image7]
+
+**Model B** performance:
+
+- **Training Accuracy**: 99.00%
+- **Validation Accuracy**: 97.00%
+
+![Model B Loss][image8]
+
+![Model B Accuracy][image9]
+
+**Model D** performance:
+
+- **Training Accuracy**: 99.99%
+- **Validation Accuracy**: 97.90%
+- **Test Accuracy**: 97.19%
+- **Test Loss:** 0.1666
+
+![Model D Loss][image10]
+
+![Model D Accuracy][image11]
+
+**Note:** Tests are only performed _once_ for each model, after each model is trained. This is done to reduce bias when tuning each model.
+
+### General Model Remarks
+It is clear from the model plots that introducing dropout significantly boosts the performance of the model. As compared to Model A, which has no dropout, the other models do not appear to overfit the training set, even with large epochs. Most notbale is that Model A does very much overfit the training set quite early in the training process, and therefore dropout is a necessity for improving model performance.
+
+Furthermore, Model C shows the best performance, at 98.4% validation accuracy, whereas Model D shows the second best performance at 97.9% accuracy. There difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
  
 
 ### Test a Model on New Images
