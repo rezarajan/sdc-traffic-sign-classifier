@@ -30,9 +30,12 @@ The goals / steps of this project are the following:
 [image9]: ./report_files/images/model_b_acc.png "Model B Accuracy"
 [image10]: ./report_files/images/model_d_loss.png "Model D Loss"
 [image11]: ./report_files/images/model_d_acc.png "Model D Accuracy"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image12]: ./report_files/images/30kmh.jpg "Extra Images 30Kmh"
+[image13]: ./report_files/images/50kmh.jpg "Extra Images 50Kmh"
+[image14]: ./report_files/images/100kmh.jpg "Extra Images 100Kmh"
+[image15]: ./report_files/images/children_crossing.jpg "Extra Images Children Crossing"
+[image16]: ./report_files/images/dangerous_curve_to_right.jpg "Extra Images Dangerous Curve to Right"
+[image17]: ./report_files/images/slippery_road.jpg "Extra Images Slippery Road"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -135,11 +138,9 @@ The general model used in this project is similar to the LeNet-5 model, but uses
 | Dropout       		| 0.5 rate  									|
 | Fully connected		| outputs 43  									|
 | Softmax				| outputs 43   									|
-|						|												|
-|						|												|
- 
+|       				|            									|
 
-
+## Model Training
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as executre any other tasks involving each `Model` class, a `ModelExecutor()` class is created. In this class the following parameters may be defined:
@@ -217,32 +218,34 @@ It is clear from the model plots that introducing dropout significantly boosts t
 
 Furthermore, Model C shows the best performance, at 98.4% validation accuracy, whereas Model D shows the second best performance at 97.9% accuracy. There difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
  
-
+---
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
+Five images of German traffic signs are found on the web, and are cropped the size of 32x32px, as required by the model:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image12] ![alt text][image13] ![alt text][image14] 
+![alt text][image15] ![alt text][image16]
 
-The first image might be difficult to classify because ...
+In general, the signs do not appear to have perspective warps. However, there are crops applied to the 50Kmh (close crop) and 100Kmh (wide crop) images, which may make it difficult for the model to identify.
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Here are the results of the prediction:
+The following are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Image			               |     Prediction	        					    | 
+|:-----------------------------|:-----------------------------------------------| 
+| Speed limit (30km/h) 	       | Speed limit (30km/h)							| 
+| Speed limit (50km/h)	       | No passing 									|
+| Speed limit (100km/h)	       | Speed limit (50km/h)							|
+| Dangerous curve to the right | Dangerous curve to the right 				    |
+| Slippery road			       | Slippery Road      							|
+| Children crossing		       | Traffic signals      							|
 
+The performance of the model on the new dataset is rather low, at **50% prediction accuracy**. This does not align with the test results, but is also not necessarily an accurate representation of model's performance, since this is a limited test set. Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -250,16 +253,63 @@ The code for making predictions on my final model is located in the 11th cell of
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
+<!-- TODO: Update this -->
+#### Image 1: Speed limit (100km/h)
+
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 0.98         			| Speed limit (50km/h) 							| 
+| 0.01     				| Roundabout mandatory 							|
+| 0.00					| Speed limit (120km/h)							|
+| 0.00	      			| Go straight or left	    	 				|
+| 0.00				    | No vehicles       							|
+#### Image 2: Speed limit (50km/h)
 
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No passing          							| 
+| 0.00         			| No entry          							| 
+| 0.00     				| Slippery road	        						|
+| 0.00					| Go straight or left							|
+| 0.00	      			| Turn left ahead	        	 				|
+#### Image 3: Speed limit (30km/h)
 
-For the second image ... 
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No passing          							| 
+| 0.00         			| No entry          							| 
+| 0.00     				| Slippery road	        						|
+| 0.00					| Go straight or left							|
+| 0.00	      			| Turn left ahead	        	 				|
+#### Image 4: Children crossing
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No passing          							| 
+| 0.00         			| No entry          							| 
+| 0.00     				| Slippery road	        						|
+| 0.00					| Go straight or left							|
+| 0.00	      			| Turn left ahead	        	 				|
+#### Image 5: Dangerous curve to the right
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No passing          							| 
+| 0.00         			| No entry          							| 
+| 0.00     				| Slippery road	        						|
+| 0.00					| Go straight or left							|
+| 0.00	      			| Turn left ahead	        	 				|
+#### Image 6: Slippery road
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No passing          							| 
+| 0.00         			| No entry          							| 
+| 0.00     				| Slippery road	        						|
+| 0.00					| Go straight or left							|
+| 0.00	      			| Turn left ahead	        	 				|
+
+				   	
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
