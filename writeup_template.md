@@ -103,17 +103,32 @@ Though the differences are subtle, they should be sufficient to help the the mod
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+The general model used in this project is similar to the LeNet-5 model, but uses:
+* 3 convolution layers instead of two (with max pooling)
+* 3 fully connected layers
+* includes dropout for both convolution and fully connected layers
 
 | Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+|:----------------------|:----------------------------------------------| 
+| Input         		| 32x32x1 Grayscale image   					| 
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 30x30x32 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
+| Max pooling	      	| 2x2 stride,  outputs 15x15x32				    |
+| Convolution 3x3	    | 1x1 stride, valid padding, outputs 13x13x64   |
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 6x6x64				    |
+| Convolution 3x3	    | 1x1 stride, valid padding, outputs 4x4x6128   |
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 2x2x128				    |
+| Flatten       		| outputs 512  									|
+| Dropout       		| 0.25 rate  									|
+| Fully connected		| outputs 120  									|
+| RELU					|												|
+| Fully connected		| outputs 84  									|
+| RELU					|												|
+| Dropout       		| 0.5 rate  									|
+| Fully connected		| outputs 43  									|
+| Softmax				| outputs 43   									|
 |						|												|
 |						|												|
  
@@ -121,8 +136,26 @@ My final model consisted of the following layers:
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as executre any other tasks involving each `Model` class, a `ModelExecutor` class is created. In this class the following parameters may be defined:
+* Convolution Kernel
+* Pooling Kernel
+* Dropout Rates
+* Training Rate
+* Epochs
 
+This way, the different models may easily be tested by tuning the mentioned parameters.
+
+The following models have been tested:
+
+| Model Name |Convolution Kernel|Pooling Kernel|Convolution Layer Dropout|Fully Connected Layer Dropout|Training Rate|Epochs|Training Set|Optimizer| 
+|:---------- |:-----------------|--------------|-------------------------|-----------------------------|-------------|------|------------|---------| 
+|A           |5x5               |2x2           |0.00                     |0.00                         |0.0001       |100   |Modified    |Adam     | 
+|B           |5x5               |2x2           |0.25                     |0.50                         |0.0001       |100   |Modified    |Adam     |
+|C           |3x3               |2x2           |0.25                     |0.50                         |0.0001       |100   |Modified    |Adam     | 
+|D           |3x3               |2x2           |0.25                     |0.50                         |0.0003       |200   |Extended    |Adam     | 
+
+---
+## Model Results
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
