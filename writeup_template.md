@@ -1,10 +1,10 @@
 # **Traffic Sign Recognition** 
 
-## Writeup
+<!-- ## Writeup
 
 ### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
----
+--- -->
 
 **Build a Traffic Sign Recognition Project**
 
@@ -19,9 +19,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
+[image1]: ./report_files/images/dataset_composition.png "Dataset Composition"
+[image2]: ./report_files/images/pre_processed.png "Pre-Processing"
+[image3]: ./report_files/images/augmented.png  "Augmented Image"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
@@ -36,49 +36,70 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/rezarajan/sdc-traffic-sign-classifier)
 
-### Data Set Summary & Exploration
+---
+## Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+Below are some summary statistics from the training dataset. They are used to gauge how well-suited the dataset is for training, as well as some areas in which the dataset may be improved.
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* Number of training examples: 34799
+* Number of testing examples: 4410
+* Number of testing examples: 12630
+* Image data shape: (32, 32, 3)
+* Number of unique classes: 43
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Shown below is a visualization of the dataset, grouped by sign type:
 
-![alt text][image1]
+![Dataset Composition][image1]
+
+The dataset is observed to have inequitable distributions of sign types, which may introduce biases in the trained model. However, this is only a hypothesis and should be tested.
 
 ### Design and Test a Model Architecture
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+### Pre-Processing
+Initially the model is constructed without any image modifications, to establish a baseline for performance. Note that this **does not** include testing on the test set, but rather only comparison to the validation set.
 
-Here is an example of a traffic sign image before and after grayscaling.
+It has been observed that the baseline model (LeNet-5 replicated architecture) did not perform to specifications of 93%, and thus other methods have been implemented as follows:
 
-![alt text][image2]
+1. CLAHE (Contrast Limited Adaptive Histogram Equalization)
+2. Grayscaling
+3. Normalization
 
-As a last step, I normalized the image data because ...
+**CLAHE:**
+This method helps correct for any lighting differences between the images in the dataset. This is done to improve consistency when training.
 
-I decided to generate additional data because ... 
+**Grayscaling:**
+Initially it had been thought that the model's prediction capability would benefit from color images, since signs differ by color. However, grayscaled images proved to increase the model's accuracy, at least in the LeNet-5-based architecture.
 
-To add more data to the the data set, I used the following techniques because ... 
+**Normalization:**
+To improve model training the grayscaled images are normalized by subtracting each pixel from the dataset's mean, and dividing by the dataset's standard deviation. Note that the mean and standard deviation are taken from all images in the dataset, not per-image.
 
-Here is an example of an original image and an augmented image:
 
-![alt text][image3]
+Below is an example of the pre-processing step:
 
-The difference between the original data set and the augmented data set is the following ... 
+![Image Pre-Processing][image2]
 
+### Image Augmentation
+To test how model accuracy is affected, a second training dataset is created (to be tested on a separate, identical model), in which the images include augmented additions. This is done by applying _affine_ transformations for 10000 images on the original training dataset, which include (between two to four of the following per image):
+* Cropping
+* Scaling
+* Translation
+* Rotation
+* Shearing 
+
+![Augmentation][image3]
+
+Though the differences are subtle, they should be sufficient to help the the model fit to the true features of the signs. In so doing, the model should become more robust to variations in images. Again, this is simply a hypothesis, and must be tested.
+
+---
+## Model Architecture
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
