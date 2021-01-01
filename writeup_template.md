@@ -250,9 +250,8 @@ The performance of the model on the new dataset is rather low, at **50% predicti
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-#### Image 1: Speed limit (30km/h)
+#### *Image 1: Speed limit (30km/h)*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -261,7 +260,11 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.12     				| Speed limit (120km/h)	   						|
 | 0.07					| Speed limit (20km/h)							|
 | 0.02	      			| Speed limit (50km/h)	      	 				|
-#### Image 2: Speed limit (50km/h)
+
+
+For the first image, the model correctly predicts the 30km/h speed limit sign correctly. However, it only does so with a probability of 0.54. MOst notably, all other predictions are also speed limit signs. This may infer that the model does well with filtering for speed limit signs, but may have difficulty differentiating between them.
+
+#### *Image 2: Speed limit (50km/h)*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -270,7 +273,10 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.08     				| Go straight or left	   						|
 | 0.07					| Priority road			                		|
 | 0.04	      			| Yield	        	 	            			|
-#### Image 3: Speed limit (100km/h)
+
+For the second image, the model incorrectly predicts the 50km/h speed limit sign, and instead predicts a "No passing" sign. Furthermore, it does so with a 0.52 probability. It does not have much confidence in its other predictions. This may be considered as an inaccurate result from the model. 
+
+#### *Image 3: Speed limit (100km/h)*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -279,7 +285,9 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.00					| Speed limit (100km/h)							|
 | 0.00	      			| Roundabout mandatory	    	 				|
 | 0.00				    | Speed limit (80km/h)       					|
-#### Image 4: Dangerous curve to the right
+
+For the third image, the model incorrectly predicts the 100km/h speed limit sign. Most strikingly, it predicts this incorrectly as a 30km/h speed limit sign, and with a 0.99 probability. For its other predictions, though they are insignificantly low probability, they are mostly speed limit signs. Comparing this to the first image, it appears as though the model does well with identifying speed limit signs, but cannot identify them precisely. This may, however, have to do with the image itself, which is a wide crop sign, and is something the model has not been trained on at all.
+#### *Image 4: Dangerous curve to the right*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -288,7 +296,9 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.00     				| Children crossing        						|
 | 0.00					| Speed limit (80km/h)							|
 | 0.00	      			| Traffic signals	        	 				|
-#### Image 5: Slippery road
+
+For the fourth image, the model correctly predicts the "Dangerous curve to the right" sign, with an absolute probability of 1.00. It is noted that this is not technically an absolute probability, but rather so close to 1.00 that it is approximated as such.  
+#### *Image 5: Slippery road*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -297,7 +307,9 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.00     				| Bicycles crossing        						|
 | 0.00					| Roundabout mandatory							|
 | 0.00	      			| Dangerous curve to the right 	 				|
-#### Image 6: Children crossing
+
+Similar to the fourth image, the model correctly predicts the "Slippery road" sign with a probability of 1.00.
+#### *Image 6: Children crossing*
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -307,7 +319,7 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 0.00					| Road narrows on the right						|
 | 0.00	      			| Children crossing	        	 				|
 
-
+The model incorrectly predicts the sixth image, which should be "Children crossing", as "Beware of ice/snow". It does so with 1.00 probability, which indicated that it is very confident in this prediction, though wrong. This is perhaps an area in which the model requires significant improvement. However, looking at the signs themselves, these two signs have similar properties: triangular shape, with a red boarder and white interior. It also serves to notice that these two images are underrepresented in the training dataset distribution. Therefore, it may help to include more of these images in the training dataset.
 
 				   	
 
