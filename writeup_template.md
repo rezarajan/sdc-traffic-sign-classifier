@@ -76,7 +76,7 @@ The dataset is observed to have inequitable distributions of sign types, which m
 ### Pre-Processing
 Initially the model is constructed without any image modifications, to establish a baseline for performance. Note that this **does not** include testing on the test set, but rather only comparison to the validation set.
 
-It has been observed that the baseline model (LeNet-5 replicated architecture) did not perform to specifications of 93%, and thus other methods have been implemented as follows:
+It has been observed that the baseline model (LeNet-5 replicated architecture) did not perform to specifications of 93%, and thus the first step in improving performance included modifying the training dataset as follows:
 
 1. CLAHE (Contrast Limited Adaptive Histogram Equalization)
 2. Grayscaling
@@ -106,7 +106,7 @@ To test how model accuracy is affected, a second training dataset is created (to
 
 ![Augmentation][image3]
 
-Though the differences are subtle, they should be sufficient to help the the model fit to the true features of the signs. In so doing, the model should become more robust to variations in images. Again, this is simply a hypothesis, and must be tested.
+Though the differences are subtle, they should be sufficient to help the the model fit to the true features of the signs. In so doing, the model should become more robust to variations in images. This is simply another hypothesis which must be tested.
 
 ---
 ## Model Architecture
@@ -116,7 +116,7 @@ Though the differences are subtle, they should be sufficient to help the the mod
 The general model used in this project is similar to the LeNet-5 model, but uses:
 * 3 convolution layers instead of two (with max pooling)
 * 3 fully connected layers
-* includes dropout for both convolution and fully connected layers
+* Includes dropout for both convolution and fully connected layers
 
 | Layer         		|     Description	        					| 
 |:----------------------|:----------------------------------------------| 
@@ -144,7 +144,7 @@ The general model used in this project is similar to the LeNet-5 model, but uses
 ## Model Training
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as executre any other tasks involving each `Model` class, a `ModelExecutor()` class is created. In this class the following parameters may be defined:
+A `Model()` class is created, which defines the general stucture of the model, as outlined [above](#2-describe-what-your-final-model-architecture-looks-like-including-model-type-layers-layer-sizes-connectivity-etc-consider-including-a-diagram-andor-table-describing-the-final-model). To train the model, as well as execute any other tasks involving each `Model` class, a `ModelExecutor()` class is created. In this class the following parameters may be defined:
 * Convolution Kernel
 * Pooling Kernel
 * Dropout Rates
@@ -166,7 +166,7 @@ The following models have been tested:
 ## Model Results
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-After training, the model results are plotted with comparisons of the training and validation accuracies. All models have been tested, as defined in the above table, and results are compared to select the best performer. In the end, ***Model C produced the best results, with the lowest losses and highest accuracies, and it showed robustness against overfitting.*** The results are as follows:
+In the Jupyter notebook, all models are trained in the section "Train the Model". After training, the model results are plotted with comparisons of the training and validation accuracies. All models have been tested, as defined in the above table, and results are compared to select the best performer. In the end, ***Model C produced the best results, with the lowest losses and highest accuracies, and it showed robustness against overfitting.*** The results are as follows:
 
 **Model C** performance:
 
@@ -212,19 +212,19 @@ For comparison purposes, the results of the other models are discussed below:
 
 ![Model D Accuracy][image11]
 
-**Note:** Tests are only performed _once_ for each model, after each model is trained. This is done to reduce bias when tuning each model.
+**Note:** Tests are only performed _once_ for each of Model C and Model D (since they are the best performers), after each model is trained. This is done to reduce bias when tuning each model.
 
 ### General Model Remarks
 It is clear from the model plots that introducing dropout significantly boosts the performance of the model. As compared to Model A, which has no dropout, the other models do not appear to overfit the training set, even with large epochs. Most notbale is that Model A does very much overfit the training set quite early in the training process, and therefore dropout is a necessity for improving model performance.
 
-Furthermore, Model C shows the best performance, at 98.30% validation accuracy, whereas Model D shows the second best performance at 97.00% accuracy. There difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
+Furthermore, Model C shows the best performance, at 98.30% validation accuracy, whereas Model D shows the second best performance at 98.20% accuracy. The difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
  
 ---
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Five images of German traffic signs are found on the web, and are cropped the size of 32x32px, as required by the model:
+Five images of German traffic signs are found on the web, and are cropped to the size of 32x32px, as required by the model:
 
 ![alt text][image12] ![alt text][image13] ![alt text][image14] 
 ![alt text][image15] ![alt text][image16]
@@ -234,7 +234,8 @@ In general, the signs do not appear to have perspective warps. However, there ar
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The following are the results of the prediction:
+
+The following are the results of the predictions:
 
 | Image			               |     Prediction	        					    | 
 |:-----------------------------|:-----------------------------------------------| 
@@ -247,9 +248,9 @@ The following are the results of the prediction:
 
 The performance of the model on the new dataset is rather low, at **50% prediction accuracy**. This does not align with the test results, but is also not necessarily an accurate representation of model's performance, since this is a limited test set. 
 
-Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. 
+Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. Furhter investigation is required to understand if/how the training dataset's distribution affects the model's prediction accuracy on external test sets.
 
-Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
+Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops, as observed from the incorrect predictions of the 50 and 100 Km/h speed limit signs. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
 
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
@@ -266,7 +267,7 @@ Potential reasons for incorrect predictions may be attributed to the the image c
 | 0.02	      			| Speed limit (50km/h)	      	 				|
 
 
-For the first image, the model correctly predicts the 30km/h speed limit sign correctly. However, it only does so with a probability of 0.54. MOst notably, all other predictions are also speed limit signs. This may infer that the model does well with filtering for speed limit signs, but may have difficulty differentiating between them.
+For the first image, the model correctly predicts the 30km/h speed limit sign. However, it only does so with a probability of 0.54. Most notably, all other predictions are also speed limit signs. This may suggest that the model does well with filtering for speed limit signs, but may have difficulty differentiating between them.
 
 #### *Image 2: Speed limit (50km/h)*
 
@@ -278,7 +279,7 @@ For the first image, the model correctly predicts the 30km/h speed limit sign co
 | 0.07					| Priority road			                		|
 | 0.04	      			| Yield	        	 	            			|
 
-For the second image, the model incorrectly predicts the 50km/h speed limit sign, and instead predicts a "No passing" sign. Furthermore, it does so with a 0.52 probability. It does not have much confidence in its other predictions. This may be considered as an inaccurate result from the model. 
+For the second image, the model incorrectly predicts the 50km/h speed limit sign, and instead predicts a "No passing" sign. Furthermore, it does so with a 0.52 probability. It does not have much confidence in its other predictions. This may be considered an inaccurate result from the model. This, however, may be attributed to the half-crop of the image itself, which style the model has not been trained on.
 
 #### *Image 3: Speed limit (100km/h)*
 
@@ -290,7 +291,7 @@ For the second image, the model incorrectly predicts the 50km/h speed limit sign
 | 0.00	      			| Roundabout mandatory	    	 				|
 | 0.00				    | Speed limit (80km/h)       					|
 
-For the third image, the model incorrectly predicts the 100km/h speed limit sign. Most strikingly, it predicts this incorrectly as a 30km/h speed limit sign, and with a 0.99 probability. For its other predictions, though they are insignificantly low probability, they are mostly speed limit signs. Comparing this to the first image, it appears as though the model does well with identifying speed limit signs, but cannot identify them precisely. This may, however, have to do with the image itself, which is a wide crop sign, and is something the model has not been trained on at all.
+For the third image, the model incorrectly predicts the 100km/h speed limit sign. Most strikingly, it predicts this incorrectly as a 30km/h speed limit sign, and with a 0.99 probability. For its other predictions, though they have insignificantly small probabilities, they are mostly speed limit signs. Comparing this to the first image, it appears as though the model does well with identifying speed limit signs, but cannot identify them precisely. This may, however, have to do with the image itself, which is a wide crop sign, and is something the model has not been trained on at all.
 #### *Image 4: Dangerous curve to the right*
 
 | Probability         	|     Prediction	        					| 
@@ -301,7 +302,7 @@ For the third image, the model incorrectly predicts the 100km/h speed limit sign
 | 0.00					| Speed limit (80km/h)							|
 | 0.00	      			| Traffic signals	        	 				|
 
-For the fourth image, the model correctly predicts the "Dangerous curve to the right" sign, with an absolute probability of 1.00. It is noted that this is not technically an absolute probability, but rather so close to 1.00 that it is approximated as such.  
+For the fourth image, the model correctly predicts the "Dangerous curve to the right" sign, with an absolute probability of 1.00. It is noted that this is not technically an absolute probability, but rather close enough to 1.00 that it is approximated as such.  
 #### *Image 5: Slippery road*
 
 | Probability         	|     Prediction	        					| 
@@ -323,16 +324,16 @@ Similar to the fourth image, the model correctly predicts the "Slippery road" si
 | 0.00					| Road narrows on the right						|
 | 0.00	      			| Children crossing	        	 				|
 
-The model incorrectly predicts the sixth image, which should be "Children crossing", as "Beware of ice/snow". It does so with 1.00 probability, which indicated that it is very confident in this prediction, though wrong. This is perhaps an area in which the model requires significant improvement. However, looking at the signs themselves, these two signs have similar properties: triangular shape, with a red boarder and white interior. It also serves to notice that these two images are underrepresented in the training dataset distribution. Therefore, it may help to include more of these images in the training dataset.
+The model incorrectly predicts the sixth image, which should be "Children crossing", as "Beware of ice/snow". It does so with 1.00 probability, which indicates that it is very confident in this prediction, though wrong. This is perhaps an area in which the model requires significant improvement. However, looking at the signs themselves, these two signs have similar properties: triangular shape, with a red boarder and white interior. It also serves to notice that these two images are under-represented in the training dataset distribution. Therefore, it may help to include more of these images in the training dataset.
 
 ---				   	
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
+### (Optional) Visualizing the Neural Network (See Step 4 of the Jupyter notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
-The feature maps for the model's convolution layers are generated using an image of a 100Km/h speed limit sign. The following is the feature map for the first convolution layer in the model. For brevity, this is the only layer which will be studied, since the others contain large amounts of feature maps.
+The feature maps for the model's convolution layers are generated using an image of a 100Km/h speed limit sign. The following are the feature maps for the first convolution layer in the model. For brevity, this is the only layer which will be examined, since the others contain large amounts of feature maps.
 
 ![alt text][image18]
 
 
-The model appears to emboss the boarders of the sign and its numbers in the first convolution layer. However, it also captures some artifacts from which do not correspond to the actual sign itself. Keep note that this image is a *wide crop*, which is dissimilar to the cropped images the model is trained on. It appears to do well in identifying the sign itself, but perhaps the other irrelevant parts of the image making it though cause the model to incorrectly identify this sign.
+The model appears to emboss the boarders of the sign and its numbers in the first convolution layer. *Note the term "emboss" is not taken technically, but rather as a description of the visual analogy*. However, it also captures some artifacts which do not correspond to the actual sign itself, such as spots surrounding the speed limit sign. Keep note that this image is a *wide crop*, which is dissimilar to the images the model is trained on in that it contains more "noise", i.e. irrelevant details. It appears to do well in identifying the sign itself, but perhaps the other irrelevant parts of the image which make it though cause the model to incorrectly identify this sign.
