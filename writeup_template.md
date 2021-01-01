@@ -245,7 +245,11 @@ The following are the results of the prediction:
 | Slippery road			       | Slippery Road      							|
 | Children crossing		       | Beware of ice/snow      						|
 
-The performance of the model on the new dataset is rather low, at **50% prediction accuracy**. This does not align with the test results, but is also not necessarily an accurate representation of model's performance, since this is a limited test set. Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
+The performance of the model on the new dataset is rather low, at **50% prediction accuracy**. This does not align with the test results, but is also not necessarily an accurate representation of model's performance, since this is a limited test set. 
+
+Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. 
+
+Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
 
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
@@ -321,11 +325,14 @@ Similar to the fourth image, the model correctly predicts the "Slippery road" si
 
 The model incorrectly predicts the sixth image, which should be "Children crossing", as "Beware of ice/snow". It does so with 1.00 probability, which indicated that it is very confident in this prediction, though wrong. This is perhaps an area in which the model requires significant improvement. However, looking at the signs themselves, these two signs have similar properties: triangular shape, with a red boarder and white interior. It also serves to notice that these two images are underrepresented in the training dataset distribution. Therefore, it may help to include more of these images in the training dataset.
 
-				   	
+---				   	
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
+The feature maps for the model's convolution layers are generated using an image of a 100Km/h speed limit sign. The following is the feature map for the first convolution layer in the model. For brevity, this is the only layer which will be studied, since the others contain large amounts of feature maps.
+
 ![alt text][image18]
 
 
+The model appears to emboss the boarders of the sign and its numbers in the first convolution layer. However, it also captures some artifacts from which do not correspond to the actual sign itself. Keep note that this image is a *wide crop*, which is dissimilar to the cropped images the model is trained on. It appears to do well in identifying the sign itself, but perhaps the other irrelevant parts of the image making it though cause the model to incorrectly identify this sign.
