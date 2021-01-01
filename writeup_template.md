@@ -171,23 +171,22 @@ After training, the model results are plotted with comparisons of the training a
 **Model C** performance:
 
 - **Training Accuracy**: 99.99%
-- **Validation Accuracy**: 98.40%
-- **Test Accuracy**: 97.57%
-- **Test Loss:** 0.1290
+- **Validation Accuracy**: 98.30%
+- **Test Accuracy**: 97.15%
+- **Test Loss:** 0.1746
 
 ![Model C Loss][image4]
 
 ![Model C Accuracy][image5]
 
-
-The test accuracy of Model C is 4.57% above the 93% required for this project, and approximately 0.83% below the validation test accuracy. The loss graph also shows how well the model does to reduce overfitting, and this is attributed to the dropout layers. **Thus Model C is accepted as the final model.**
+The accuracy of this model is 4.15% above the 93% required for this project, and approximately 1.15% below the validation test accuracy. The loss graph also shows how well the model does to reduce overfitting, and this is attributed to the dropout layers. **Thus Model C is accepted as the final model.**
 
 For comparison purposes, the results of the other models are discussed below:
 
 **Model A** performance:
 
 - **Training Accuracy**: 99.99%
-- **Validation Accuracy**: 95.70%
+- **Validation Accuracy**: 95.90%
 
 ![Model A Loss][image6]
 
@@ -195,8 +194,8 @@ For comparison purposes, the results of the other models are discussed below:
 
 **Model B** performance:
 
-- **Training Accuracy**: 99.00%
-- **Validation Accuracy**: 97.00%
+- **Training Accuracy**: 99.99%
+- **Validation Accuracy**: 97.90%
 
 ![Model B Loss][image8]
 
@@ -205,9 +204,9 @@ For comparison purposes, the results of the other models are discussed below:
 **Model D** performance:
 
 - **Training Accuracy**: 99.99%
-- **Validation Accuracy**: 97.90%
-- **Test Accuracy**: 97.19%
-- **Test Loss:** 0.1666
+- **Validation Accuracy**: 98.20%
+- **Test Accuracy**: 97.00%
+- **Test Loss:** 0.1799
 
 ![Model D Loss][image10]
 
@@ -218,7 +217,7 @@ For comparison purposes, the results of the other models are discussed below:
 ### General Model Remarks
 It is clear from the model plots that introducing dropout significantly boosts the performance of the model. As compared to Model A, which has no dropout, the other models do not appear to overfit the training set, even with large epochs. Most notbale is that Model A does very much overfit the training set quite early in the training process, and therefore dropout is a necessity for improving model performance.
 
-Furthermore, Model C shows the best performance, at 98.4% validation accuracy, whereas Model D shows the second best performance at 97.9% accuracy. There difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
+Furthermore, Model C shows the best performance, at 98.30% validation accuracy, whereas Model D shows the second best performance at 97.00% accuracy. There difference in these two models primarily lies in the training dataset used, where Model D uses an extended dataset with augmented images. The learning rate for Model D is also higher, at 0.0003 rather than the 0.0001 used for Model C. Further investigation into the performance of these two models may be necessary, since the performances are similar, but Model D has exposure to different data and may therefore, be more general.
  
 ---
 ### Test a Model on New Images
