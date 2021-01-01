@@ -36,6 +36,7 @@ The goals / steps of this project are the following:
 [image15]: ./report_files/images/children_crossing.jpg "Extra Images Children Crossing"
 [image16]: ./report_files/images/dangerous_curve_to_right.jpg "Extra Images Dangerous Curve to Right"
 [image17]: ./report_files/images/slippery_road.jpg "Extra Images Slippery Road"
+[image18]: ./report_files/images/feature_map.png "Feature Maps for Convolution Layer 1"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -182,6 +183,7 @@ After training, the model results are plotted with comparisons of the training a
 The test accuracy of Model C is 4.57% above the 93% required for this project, and approximately 0.83% below the validation test accuracy. The loss graph also shows how well the model does to reduce overfitting, and this is attributed to the dropout layers. **Thus Model C is accepted as the final model.**
 
 For comparison purposes, the results of the other models are discussed below:
+
 **Model A** performance:
 
 - **Training Accuracy**: 99.99%
@@ -312,5 +314,7 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+![alt text][image18]
 
 
