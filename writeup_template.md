@@ -239,75 +239,74 @@ The following are the results of the prediction:
 |:-----------------------------|:-----------------------------------------------| 
 | Speed limit (30km/h) 	       | Speed limit (30km/h)							| 
 | Speed limit (50km/h)	       | No passing 									|
-| Speed limit (100km/h)	       | Speed limit (50km/h)							|
+| Speed limit (100km/h)	       | Speed limit (30km/h)							|
 | Dangerous curve to the right | Dangerous curve to the right 				    |
 | Slippery road			       | Slippery Road      							|
-| Children crossing		       | Traffic signals      							|
+| Children crossing		       | Beware of ice/snow      						|
 
 The performance of the model on the new dataset is rather low, at **50% prediction accuracy**. This does not align with the test results, but is also not necessarily an accurate representation of model's performance, since this is a limited test set. Furthermore, from these results it is noted that the distribution of the dataset did not appear to affect the model's accuracy, since presence for the signs in both correctly and incorrectly predicted results are about the same. Again, since this test is done on limited data, it is not conclusive. Potential reasons for incorrect predictions may be attributed to the the image crops; since the training datset mostly has well-cropped images, the model seems to display weakness when subjected to different crops. It may be useful to augment the images to produce more obscure crops, and train the model on that as well.
 
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-<!-- TODO: Update this -->
-#### Image 1: Speed limit (100km/h)
+#### Image 1: Speed limit (30km/h)
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 0.98         			| Speed limit (50km/h) 							| 
-| 0.01     				| Roundabout mandatory 							|
-| 0.00					| Speed limit (120km/h)							|
-| 0.00	      			| Go straight or left	    	 				|
-| 0.00				    | No vehicles       							|
+| 0.54         			| Speed limit (30km/h)   						| 
+| 0.25         			| End of speed limit (80km/h)   				| 
+| 0.12     				| Speed limit (120km/h)	   						|
+| 0.07					| Speed limit (20km/h)							|
+| 0.02	      			| Speed limit (50km/h)	      	 				|
 #### Image 2: Speed limit (50km/h)
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 1.00         			| No passing          							| 
-| 0.00         			| No entry          							| 
-| 0.00     				| Slippery road	        						|
-| 0.00					| Go straight or left							|
-| 0.00	      			| Turn left ahead	        	 				|
-#### Image 3: Speed limit (30km/h)
+| 0.52         			| No passing          							| 
+| 0.12         			| No entry          							| 
+| 0.08     				| Go straight or left	   						|
+| 0.07					| Priority road			                		|
+| 0.04	      			| Yield	        	 	            			|
+#### Image 3: Speed limit (100km/h)
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 1.00         			| No passing          							| 
-| 0.00         			| No entry          							| 
-| 0.00     				| Slippery road	        						|
-| 0.00					| Go straight or left							|
-| 0.00	      			| Turn left ahead	        	 				|
-#### Image 4: Children crossing
+| 0.99         			| Speed limit (30km/h) 							| 
+| 0.01     				| Speed limit (50km/h) 							|
+| 0.00					| Speed limit (100km/h)							|
+| 0.00	      			| Roundabout mandatory	    	 				|
+| 0.00				    | Speed limit (80km/h)       					|
+#### Image 4: Dangerous curve to the right
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 1.00         			| No passing          							| 
-| 0.00         			| No entry          							| 
-| 0.00     				| Slippery road	        						|
-| 0.00					| Go straight or left							|
-| 0.00	      			| Turn left ahead	        	 				|
-#### Image 5: Dangerous curve to the right
+| 1.00         			| Dangerous curve to the right					| 
+| 0.00         			| Road work          							| 
+| 0.00     				| Children crossing        						|
+| 0.00					| Speed limit (80km/h)							|
+| 0.00	      			| Traffic signals	        	 				|
+#### Image 5: Slippery road
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 1.00         			| No passing          							| 
-| 0.00         			| No entry          							| 
-| 0.00     				| Slippery road	        						|
-| 0.00					| Go straight or left							|
-| 0.00	      			| Turn left ahead	        	 				|
-#### Image 6: Slippery road
+| 1.00         			| Slippery road        							| 
+| 0.00         			| Beware of ice/snow   							| 
+| 0.00     				| Bicycles crossing        						|
+| 0.00					| Roundabout mandatory							|
+| 0.00	      			| Dangerous curve to the right 	 				|
+#### Image 6: Children crossing
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 1.00         			| No passing          							| 
-| 0.00         			| No entry          							| 
-| 0.00     				| Slippery road	        						|
-| 0.00					| Go straight or left							|
-| 0.00	      			| Turn left ahead	        	 				|
+| 1.00         			| Beware of ice/snow   							| 
+| 0.00         			| Turn left ahead      							| 
+| 0.00     				| Go straight or right	   						|
+| 0.00					| Road narrows on the right						|
+| 0.00	      			| Children crossing	        	 				|
+
+
 
 				   	
 
